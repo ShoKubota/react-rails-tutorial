@@ -1,5 +1,19 @@
 class Api::V1::LineFoodsController < ApplicationController
-  before_action :set_food, only: %i[create]
+  before_action :set_food, only: %i[create replace]
+
+  def index
+    line_foods = LineFood.active
+    if line_foods.exists?
+      render json: {
+        line_food_ids: line_foods.map { |line_food| line_food.id },
+        restaurant: line_foods[0].restaurant,
+        count: line_foods.sum { |line_food| line_food[:count] },
+        amount: line_foods.sum { |linefood| line_food.total_amount },
+      }, status: :ok
+    else
+      render json: {}, status: :no_content
+    end
+  end
 
   def create
     # 他店舗の商品入れてませんか？チェックをする
@@ -11,6 +25,23 @@ class Api::V1::LineFoodsController < ApplicationController
     end
 
     #仮注文データの作成
+    set_line_food(@ordered_food)
+
+    if @line_food.save
+      render json: {
+        line_food: @line_food
+      }, status: :created
+    else
+      render json: {}, status: :internal_server_error
+    end
+  end
+
+  def replace
+    #他店舗の仮注文情報があれば、非活性にする
+    LineFood.active.order_restaurant(@ordered_food.restaurant.id).each do |line_food|
+      line_food.update(:active, false)
+    end
+
     set_line_food(@ordered_food)
 
     if @line_food.save

@@ -1,4 +1,4 @@
-export const REQUEST_STATUS = {
+export const REQUEST_STATE = {
   INTIAL: 'INITIAL',
   LOADING: 'LOADING',
   OK: 'OK'

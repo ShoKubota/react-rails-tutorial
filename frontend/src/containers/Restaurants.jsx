@@ -57,9 +57,9 @@ const RestaurantsContentsList = styled.div`
 `;
 
 const RestaurantsContentWrapper = styled.div`
-  width: 450px;
+  width: 400px;
   height: 300px;
-  padding: 48px;
+  padding: 36px;
 `;
 
 const RestaurantsImageNode = styled.img`
@@ -105,9 +105,9 @@ export const Restaurants = () => {
         {
           state.fetchState === REQUEST_STATE.LOADING ?
             <Fragment>
-              <Skeleton variant="rect" width={450} height={300} />
-              <Skeleton variant="rect" width={450} height={300} />
-              <Skeleton variant="rect" width={450} height={300} />
+              <Skeleton variant="rect" width={400} height={300} />
+              <Skeleton variant="rect" width={400} height={300} />
+              <Skeleton variant="rect" width={400} height={300} />
             </Fragment>
           :
             state.restaurantsList.map((item, index) =>

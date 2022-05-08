@@ -38,8 +38,8 @@ class Api::V1::LineFoodsController < ApplicationController
 
   def replace
     #他店舗の仮注文情報があれば、非活性にする
-    LineFood.active.order_restaurant(@ordered_food.restaurant.id).each do |line_food|
-      line_food.update(:active, false)
+    LineFood.active.other_restaurant(@ordered_food.restaurant.id).each do |line_food|
+      line_food.update(active: false)
     end
 
     set_line_food(@ordered_food)

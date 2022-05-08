@@ -12,7 +12,7 @@ export const postLineFoods =(params) => {
   .then(res => {
     return res.daa
   })
-  .catch((e) => {throw e; })
+  .catch((e) => {throw e;})
 };
 
 export const replaceLineFoods = (params) => {
@@ -26,4 +26,12 @@ export const replaceLineFoods = (params) => {
     return res.data
   })
   .catch((e) => {throw e;})
+};
+
+export const fetchLineFoods = () => {
+  return axios.get(lineFoods)
+  .then(res => {
+    return res.data
+  })
+  .catch((e) => { throw e; })
 };

@@ -2,14 +2,24 @@ import React, {Fragment, useEffect, useReducer } from 'react';
 
 import { fetchLineFoods } from '../apis/line_foods';
 
+import { postOrder } from '../apis/orders';
+
 import {
   initialState,
   lineFoodsActionTypes,
   lineFoodsReducer,
 } from '../reducers/lineFoods'
 
-// フラグメントを使うことで、DOMに余分なノードを追加することなくこ要素をまとめることはできる
-// レンダーされるHTMLは親要素を持つ必要がある、しかし、divタグを追加するのは無駄...→フラグメント！
+const postLineFoods = () => {
+  dispatch({ type: lineFoodsActionTypes.POSTING });
+  postOrder({
+    line_food_ids: state.linelineFoodsSummary.line_food_ids,
+  }).then(() => {
+    dispatch({ type: lineFoodsActionTypes.POST_SUCCESS });
+    window.location.reload();
+  });
+};
+
 export const Orders = () => {
   const [state, dispatch] = useReducer(lineFoodsReducer, initialState);
 

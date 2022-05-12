@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 
 import { LocalMallIcon, QueryBuilderIcon } from './Icons';
 
-import { FONT_SIZE } from '../styled_components';
+import { FONT_SIZE } from '../style_constants';
 
 const LineWrapper = styled.div`
   display: flex;
@@ -27,9 +27,13 @@ export const OrderDetailItem = ({
   <Fragment>
     <LineWrapper>
       <LocalMallIcon />
-      <Link to={`/retaurants/${restaurantId}/foods}`}>
+      <Link to={`/restaurants/${restaurantId}/foods`}>
         {restaurantName}
       </Link>
+    </LineWrapper>
+    <LineWrapper>
+      <QueryBuilderIcon />
+      {timeRequired}分で到着予定
     </LineWrapper>
     <LineWrapper>
       <p>
@@ -41,6 +45,14 @@ export const OrderDetailItem = ({
     </LineWrapper>
     <LineWrapper>
       <p>
+        料金:
+      </p>
+      <p>
+        ¥ {price}
+      </p>
+    </LineWrapper>
+    <LineWrapper>
+      <p>
         配送料
       </p>
       <p>
@@ -48,6 +60,9 @@ export const OrderDetailItem = ({
       </p>
     </LineWrapper>
     <LineWrapper>
+      <AmountText>
+        合計
+      </AmountText>
       <AmountText>
         ¥ {price + restaurantFee}
       </AmountText>

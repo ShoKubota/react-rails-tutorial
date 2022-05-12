@@ -2,7 +2,7 @@ class Api::V1::OrdersController < ApplicationController
   def create
     posted_line_foods = LineFood.where(id: params[:line_food_ids])
     order = Order.new(
-      total_proce: total_price(posted_line_foods),
+      total_price: total_price(posted_line_foods),
     )
     if order.save_with_update_line_foods!(posted_line_foods)
       render json: {}, status: :no_content
